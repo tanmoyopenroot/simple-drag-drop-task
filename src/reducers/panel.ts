@@ -1,15 +1,11 @@
 import { Action } from 'redux';
 
 import { IPanelModal } from '../modals/panel';
+import { PanelsStateType } from '../actions/panel';
 import {
   ADD_PANEL,
   DELETE_PANEL,
 } from '../actions/types';
-
-export type PanelsStateType = Readonly<{
-  panelsID: string[],
-  panelsHash: { [key: string]: IPanelModal; },
-}>;
 
 interface IPanelAddAction extends Action {
   type: typeof ADD_PANEL;

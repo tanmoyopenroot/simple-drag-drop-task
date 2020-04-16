@@ -1,5 +1,5 @@
 export interface ITaskModal {
-  id: number;
+  id: string;
   title: string;
   body: string;
 }

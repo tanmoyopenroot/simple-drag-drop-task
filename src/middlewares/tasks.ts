@@ -1,16 +1,16 @@
 import { Middleware, Action } from 'redux';
 
-import { IPanelAddAction } from '../actions/panel';
-import { ADD_PANEL } from '../actions/types';
+import { ITaskAddAction } from '../actions/task';
+import { ADD_TASK } from '../actions/types';
 import idGenerator from '../utils/id-generator';
 
-export const panelMiddleware: Middleware =
-  () => next => (action: IPanelAddAction): Action => {
+export const taskMiddleware: Middleware =
+  () => next => (action: ITaskAddAction): Action => {
     const { type, payload } = action;
 
-    if (type === ADD_PANEL) {
+    if (type === ADD_TASK) {
       return next({
-        type: ADD_PANEL,
+        type: ADD_TASK,
         payload: {
           id: idGenerator(),
           ...payload,

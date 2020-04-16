@@ -1,14 +1,18 @@
 import { Action } from 'redux';
+import { IPanelModal } from '../modals/panel';
 import {
   ADD_PANEL,
   DELETE_PANEL,
 } from './types';
 
+export type PanelsStateType = Readonly<{
+  panelsID: string[],
+  panelsHash: { [key: string]: IPanelModal; },
+}>;
+
 export interface IPanelAddAction extends Action {
   type: typeof ADD_PANEL;
-  payload: {
-    title: string;
-  };
+  payload: Omit<IPanelModal, 'id'>;
 }
 
 export interface IPanelDeleteAction extends Action {
@@ -18,11 +22,9 @@ export interface IPanelDeleteAction extends Action {
   };
 }
 
-export const addPanel = (title: string): IPanelAddAction => ({
+export const addPanel = (payload: Omit<IPanelModal, 'id'>): IPanelAddAction => ({
+  payload,
   type: ADD_PANEL,
-  payload: {
-    title,
-  },
 });
 
 export const deletePanel = (id: string): IPanelDeleteAction => ({
