@@ -2,7 +2,7 @@ import styledComponents from 'styled-components';
 
 export const COLORS = {
   PRIMARY_TEXT: '#172b4d',
-  BACKGROUND_COLOR: '#ebecf0',
+  BACKGROUND_COLOR: '#fff',
 };
 
 export interface ICenterContainerProps {
