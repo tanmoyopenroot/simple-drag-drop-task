@@ -6,6 +6,7 @@ export const Panel = styledComponents.div`
   box-shadow: ${props => props.theme.ELEVATION.ONE};
   margin-right: 10px;
   width: 370px;
+  height: fit-content;
 `;
 
 export default Panel;

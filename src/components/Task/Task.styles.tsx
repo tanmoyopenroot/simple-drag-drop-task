@@ -18,7 +18,6 @@ export const TaskWrapper = styledComponents(GROUPED_ROW)`
   cursor: grab;
   padding: .66rem 1rem;
   position: relative;
-  margin-top: .5rem;
 `;
 
 export const TaskActionWrapper = styledComponents(GROUPED_COLUMN)`
