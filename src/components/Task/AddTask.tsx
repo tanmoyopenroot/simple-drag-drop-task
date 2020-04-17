@@ -8,7 +8,7 @@ interface IAddActionsProps {
   onAddClick: () => void;
 }
 
-const ItemActions: React.FC<IAddActionsProps> = (props) => {
+const AddTaskActions: React.FC<IAddActionsProps> = (props) => {
   const { onAddClick } = props;
 
   return (
@@ -23,4 +23,4 @@ const ItemActions: React.FC<IAddActionsProps> = (props) => {
   );
 };
 
-export default React.memo(ItemActions);
+export default React.memo(AddTaskActions);
