@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Testing <CenterContainer /> should be able to render with props 1`] = `ShallowWrapper {}`;

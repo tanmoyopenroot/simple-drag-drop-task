@@ -2,7 +2,7 @@ import * as React from 'react';
 import { IoIosAdd } from 'react-icons/io';
 
 import Button from '../Button';
-import { AddPanelWrapper } from './AddPanel.styles';
+import { AddPanelWrapper } from './Panel.styles';
 
 interface IAddActionsProps {
   onAddClick: () => void;
