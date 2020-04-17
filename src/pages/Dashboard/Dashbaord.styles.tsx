@@ -9,3 +9,5 @@ export const PanelsContainer = styledComponents.div`
 export const TasksContainer = styledComponents.div`
   padding: 1rem 1.5rem;
 `;
+
+export const TaskWrapper = styledComponents.div``;

@@ -11,11 +11,9 @@ const ItemActions: React.FC<IItemActionsProps> = (props) => {
   const { onEditClick } = props;
 
   return (
-    <React.Fragment>
-      <TaskActionWrapper>
-        <IoMdCreate onClick={onEditClick} />
-      </TaskActionWrapper>
-    </React.Fragment>
+    <TaskActionWrapper>
+      <IoMdCreate onClick={onEditClick} />
+    </TaskActionWrapper>
   );
 };
 

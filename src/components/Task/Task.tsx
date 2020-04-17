@@ -10,19 +10,25 @@ import {
 export interface ITaskProps {
   id: string;
   body?: string;
+  onDragStart: (event: React.MouseEvent<HTMLDivElement>, id: string) => void;
+  onDragEnd: (event: React.MouseEvent<HTMLDivElement>, id: string) => void;
 }
 
 export interface ITaskState {
   isEditing: boolean;
 }
 
+export interface IDefaultProps {
+  body?: string;
+}
+
 class Task extends React.Component<ITaskProps, ITaskState> {
-  public static defaultProps: Omit<ITaskProps, 'id'> = {
+  public static defaultProps: IDefaultProps = {
     body: 'Enter new task...',
   };
 
   public state: ITaskState = {
-    isEditing: true,
+    isEditing: false,
   };
 
   public shouldComponentUpdate(nextProps: ITaskProps, nextState: ITaskState) {
@@ -49,6 +55,24 @@ class Task extends React.Component<ITaskProps, ITaskState> {
     this.toggleEdit();
   }
 
+  private handleDragStart = (event: React.MouseEvent<HTMLDivElement>) => {
+    const {
+      id,
+      onDragStart,
+    } = this.props;
+
+    onDragStart(event, id);
+  }
+
+  private handleDragEnd = (event: React.MouseEvent<HTMLDivElement>) => {
+    const {
+      id,
+      onDragEnd,
+    } = this.props;
+
+    onDragEnd(event, id);
+  }
+
   private getInput = () => {
     const { body } = this.props;
     const { isEditing } = this.state;
@@ -70,7 +94,12 @@ class Task extends React.Component<ITaskProps, ITaskState> {
     const { id } = this.props;
 
     return(
-      <TaskWrapper id={id}>
+      <TaskWrapper
+        id={id}
+        draggable={true}
+        onDragStart={this.handleDragStart}
+        onDragEnd={this.handleDragEnd}
+      >
         {this.getInput()}
         <TaskActions onEditClick={this.toggleEdit} />
       </TaskWrapper>

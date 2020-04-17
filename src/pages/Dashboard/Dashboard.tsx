@@ -5,6 +5,7 @@ import { IAppState } from '../../common/state';
 import { CenterContainer } from '../../components/Layouts';
 import TextHeader from '../../components/TextHeader';
 import Task from '../../components/Task/Task';
+import AddTask from '../../components/Task/AddTask';
 import {
   Panel,
   PanelHeader,
@@ -12,6 +13,7 @@ import {
 import {
   PanelsContainer,
   TasksContainer,
+  TaskWrapper,
 } from './Dashbaord.styles';
 
 import { panelsSelector } from '../../selectors/panel';
@@ -27,13 +29,46 @@ export interface IMapStateToProps {
 export interface IDashdboardProps extends IMapStateToProps {}
 
 export class Dashdboard extends React.PureComponent<IDashdboardProps, {}>{
-  public renderPanelHeader = (title: string) => (
+  private static hoveredPanelId: string | null = null;
+  private static hoveredTaskId: string | null = null;
+
+  private setHoveredPanelId = (id: string | null) => {
+    Dashdboard.hoveredPanelId = id;
+  }
+
+  private setHoveredTaskId = (id: string | null) => {
+    Dashdboard.hoveredTaskId = id;
+  }
+
+  private renderPanelHeader = (title: string) => (
     <PanelHeader>
       {title}
     </PanelHeader>
   )
 
-  public renderTask = (id: string) => {
+  public handleDragStart = (event: React.MouseEvent<HTMLDivElement>, id: string) => {
+    console.log('handleDragStart', event, id);
+  }
+
+  public handleDragEnd = (event: React.MouseEvent<HTMLDivElement>, id: string) => {
+    console.log('handleDragEnd', event, id);
+    this.setHoveredPanelId(null);
+  }
+
+  private handleTaskDragOver = (id: string, panelId: string) =>
+    (event: React.MouseEvent<HTMLDivElement>) => {
+      if (Dashdboard.hoveredTaskId === id) {
+        return;
+      }
+
+      if (Dashdboard.hoveredTaskId !== id) {
+        this.setHoveredTaskId(id);
+      }
+
+      console.log('handleTaskDragOver', event, id, panelId);
+    }
+
+  private renderTask = (id: string, panelId: string) => {
     const {
       tasks: {
         tasksHash,
@@ -43,15 +78,21 @@ export class Dashdboard extends React.PureComponent<IDashdboardProps, {}>{
     const task = tasksHash[id];
 
     return (
-      <Task
+      <TaskWrapper
         key={task.id}
-        id={task.id}
-        body={task.body}
-      />
+        onDragOver={this.handleTaskDragOver(id, panelId)}
+      >
+        <Task
+          id={task.id}
+          body={task.body}
+          onDragStart={this.handleDragStart}
+          onDragEnd={this.handleDragEnd}
+        />
+      </TaskWrapper>
     );
   }
 
-  public renderTasks = (panelId: string) => {
+  private renderTasks = (panelId: string) => {
     const {
       tasks: {
         tasksIDByPanel,
@@ -62,12 +103,31 @@ export class Dashdboard extends React.PureComponent<IDashdboardProps, {}>{
 
     return (
       <TasksContainer>
-        {tasks.map(id => this.renderTask(id))}
+        {tasks.map(id => this.renderTask(id, panelId))}
+        {this.renderAddTask(panelId)}
       </TasksContainer>
     );
   }
 
-  public renderPanel = (id: string) => {
+  private handleAddTask = (id: string) => () => {
+    console.log('Add Task to Panel', id);
+  }
+
+  private renderAddTask = (id: string) => <AddTask onAddClick={this.handleAddTask(id)}/>;
+
+  private handlePanelDragOver = (id: string) => (event: React.MouseEvent<HTMLDivElement>) => {
+    if (Dashdboard.hoveredPanelId === id) {
+      return;
+    }
+
+    if (Dashdboard.hoveredPanelId !== id) {
+      this.setHoveredPanelId(id);
+    }
+
+    console.log('handlePanelDragOver', event, id);
+  }
+
+  private renderPanel = (id: string) => {
     const {
       panels: {
         panelsHash,
@@ -77,14 +137,17 @@ export class Dashdboard extends React.PureComponent<IDashdboardProps, {}>{
     const panel = panelsHash[id];
 
     return (
-      <Panel key={panel.id}>
+      <Panel
+        key={panel.id}
+        onDragOver={this.handlePanelDragOver(panel.id)}
+      >
         {this.renderPanelHeader(panel.title)}
         {this.renderTasks(panel.id)}
       </Panel>
     );
   }
 
-  public renderPanels = () => {
+  private renderPanels = () => {
     const { panels } = this.props;
 
     return (
