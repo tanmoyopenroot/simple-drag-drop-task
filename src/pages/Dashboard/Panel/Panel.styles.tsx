@@ -1,6 +1,5 @@
 import * as React from 'react';
 import styledComponents from 'styled-components';
-import { GroupedRow } from '../../../common/styles';
 import {
   IPrimaryTextProps,
   PrimaryText,
@@ -22,8 +21,10 @@ export const PanelContainer = styledComponents.div`
   border-radius: ${props => props.theme.RADIUS};
   box-shadow: ${props => props.theme.ELEVATION.ONE};
   margin-right: 10px;
-  width: 370px;
-  height: fit-content;
+
+  display: grid;
+  grid-template-rows: auto minmax(auto, 1fr) auto;
+  max-height: calc(100vh - 11.8rem);
 `;
 
 export const TasksContainer = styledComponents.div`
@@ -42,12 +43,6 @@ export const TaskContainer = styledComponents.div<ITaskContainerProps>`
   border-radius: ${props => props.theme.RADIUS};
   transition: 0.2s ease-in-out all;
   margin: 4px 0px;
-`;
-
-export const AddPanelWrapper = styledComponents(GroupedRow)`
-  margin-right: 10px;
-  width: 300px;
-  height: fit-content;
 `;
 
 export const InputWrapper = styledComponents.div`

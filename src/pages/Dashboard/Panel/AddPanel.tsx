@@ -6,10 +6,7 @@ import TextHeader from '../../../components/TextHeader';
 import Input from '../../../components/Input';
 import Dialog from '../../../components/Dialog';
 import { GroupedRow } from '../../../common/styles';
-import {
-  AddPanelWrapper,
-  InputWrapper,
-} from './Panel.styles';
+import { InputWrapper } from './Panel.styles';
 
 interface IAddActionsProps {
   onCreate: (title: string) => void;
@@ -56,7 +53,7 @@ class AddPanelActions extends React.Component<IAddActionsProps, IAddActionState>
     const { title } = this.state;
 
     return (
-      <AddPanelWrapper>
+      <React.Fragment>
         <Button onClick={this.handleOnAddPanelClick}>
           <React.Fragment>
             <IoIosAdd />
@@ -92,7 +89,7 @@ class AddPanelActions extends React.Component<IAddActionsProps, IAddActionState>
             </GroupedRow>
           </React.Fragment>
         </Dialog>
-      </AddPanelWrapper>
+      </React.Fragment>
     );
   }
 }
