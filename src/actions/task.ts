@@ -13,7 +13,6 @@ export type TasksStateType = Readonly<{
 export interface ITaskAddAction extends Action {
   type: typeof ADD_TASK;
   payload: {
-    title: string;
     body: string;
     panelId: string;
   };
@@ -29,7 +28,6 @@ interface ITaskDeleteAction extends Action {
 
 export const addTask = (
   payload: {
-    title: string;
     body: string;
     panelId: string;
   },

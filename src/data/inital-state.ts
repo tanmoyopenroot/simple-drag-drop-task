@@ -31,17 +31,14 @@ const state: IAppState = {
     tasksHash: {
       _qvf8cg4dn: {
         id: '_qvf8cg4dn',
-        title: 'Task A',
         body: 'Body Of Task A',
       },
       _94r8civnq: {
         id: '_94r8civnq',
-        title: 'Task B',
         body: 'Body Of Task B',
       },
       _nwv2pj98w: {
         id: '_nwv2pj98w',
-        title: 'Task C',
         body: 'Body Of Task C',
       },
     },

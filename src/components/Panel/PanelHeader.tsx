@@ -9,7 +9,10 @@ export interface IPanelHeaderProps extends IPrimaryTextProps {
 }
 
 export const PanelHeader = styledComponents(PrimaryText)<IPanelHeaderProps>`
-  font-size: ${props => props.size || '15px'};
+  font-size: ${props => props.size || props.theme.FONT.MEDIUM};
+  font-weight: bold;
+  padding: 1rem;
+  text-align: center;
 `;
 
 export default PanelHeader;

@@ -1,10 +1,5 @@
 import styledComponents from 'styled-components';
 
-export const COLORS = {
-  PRIMARY_TEXT: '#172b4d',
-  BACKGROUND_COLOR: '#fff',
-};
-
 export interface ICenterContainerProps {
   color?: string;
   width?: string | number;
@@ -23,5 +18,5 @@ export interface IPrimaryTextProps {
 }
 
 export const PrimaryText = styledComponents.h1<IPrimaryTextProps>`
-  color: ${props => props.color || COLORS.PRIMARY_TEXT};
+  color: ${props => props.color || props.theme.PRIMARY_TEXT};
 `;

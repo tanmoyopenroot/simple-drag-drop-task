@@ -10,7 +10,6 @@ interface ITaskAddAction extends Action {
   type: typeof ADD_TASK;
   payload: {
     id: string;
-    title: string;
     body: string;
     panelId: string;
   };

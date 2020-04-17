@@ -1,3 +1,11 @@
 import styledComponents from 'styled-components';
 
-export const PanelsContainer = styledComponents.div``;
+export const PanelsContainer = styledComponents.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+`;
+
+export const TasksContainer = styledComponents.div`
+  padding: 1rem 1.5rem;
+`;
