@@ -3,20 +3,20 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
 import { IAppState } from '../../common/state';
-import { CenterContainer } from '../../components/Layouts';
-
-import Panel from './Panel';
-import TextHeader from '../../components/TextHeader';
-import AddPanel from './Panel/AddPanel';
-import { PanelsContainer } from './Dashbaord.styles';
-
 import { panelsSelector } from '../../selectors/panel';
+import { tasksSelector } from '../../selectors/task';
+import { TasksStateType } from '../../actions/task';
 import {
   PanelsStateType,
   addPanel,
 } from '../../actions/panel';
-import { tasksSelector } from '../../selectors/task';
-import { TasksStateType } from '../../actions/task';
+import { CenterContainer } from '../../components/Layouts';
+import TextHeader from '../../components/TextHeader';
+import {
+  Panel,
+  AddPanel,
+} from './Panel';
+import { PanelsContainer } from './Dashbaord.styles';
 
 export interface IMapStateToProps {
   panels: PanelsStateType;

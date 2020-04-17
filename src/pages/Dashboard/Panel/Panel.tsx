@@ -2,24 +2,24 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
-import Task from '../Task/Task';
-import AddTask from '../Task/AddTask';
-
+import { IPanelModal } from '../../../modals/panel';
 import { IAppState } from '../../../common/state';
 import { tasksSelector } from '../../../selectors/task';
+import { moveTaskAboveId } from '../../../selectors/move';
 import {
   TasksStateType,
   addTask,
   moveTask,
   editTask,
 } from '../../../actions/task';
-import { moveTaskAboveId } from '../../../selectors/move';
 import {
   moveFrom,
   moveTo,
 } from '../../../actions/move';
-import { IPanelModal } from '../../../modals/panel';
-
+import {
+  Task,
+  AddTask,
+} from '../Task';
 import {
   PanelHeader,
   PanelContainer,

@@ -1,3 +1,7 @@
 import Panel from './Panel';
+import AddPanel from './AddPanel';
 
-export default Panel;
+export {
+  Panel,
+  AddPanel,
+};
