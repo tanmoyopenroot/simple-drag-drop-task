@@ -21,6 +21,10 @@ const GlobalStyle = createGlobalStyle`
     background-color: #2a385c;
     background-image: linear-gradient(320deg, hsl(215, 10%, 12%) 0% /* down */, hsl(215, 19%, 24%) /* up */ 100%);
   }
+
+  *:focus {
+    outline: none;
+  }
 `;
 
 export { GlobalStyle };

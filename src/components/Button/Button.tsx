@@ -1,23 +1,22 @@
 import * as React from 'react';
+import styledComponents from 'styled-components';
 
-import { ButtonWrapper } from './Button.styles';
-
-export interface ButtonProps {
-  children?: React.ReactChild;
-  action: () => void;
+export interface IButtonProps {
+  width?: string;
 }
 
-const Button: React.FC<ButtonProps> = (props) => {
-  const {
-    children,
-    action,
-  } = props;
+export const Button = React.memo(styledComponents.button<IButtonProps>`
+  background-image: ${props => props.theme.ACTIONABLE_BACKGROUND_IMAGE};
+  color: ${props => props.theme.PRIMARY_TEXT};
+  font-size: ${props => props.theme.FONT.MEDIUM};
+  border-radius: ${props => props.theme.RADIUS};
+  width: ${props => props.width || '100%'};
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: .66rem 1rem;
+`);
 
-  return (
-    <ButtonWrapper onClick={action}>
-      {children}
-    </ButtonWrapper>
-  );
-};
-
-export default React.memo(Button);
+export default Button;

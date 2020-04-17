@@ -1,9 +1,15 @@
 import { Action } from 'redux';
 
-import { TasksStateType } from '../actions/task';
+import {
+  TasksStateType,
+  ITaskEditAction,
+} from '../actions/task';
+import { MoveTaskStateType } from '../actions/move';
 import {
   ADD_TASK,
   DELETE_TASK,
+  EDIT_TASK,
+  MOVE_TASK,
 } from '../actions/types';
 
 interface ITaskAddAction extends Action {
@@ -23,6 +29,11 @@ interface ITaskDeleteAction extends Action {
   };
 }
 
+interface ITaskMoveAction extends Action {
+  type: typeof MOVE_TASK;
+  payload: MoveTaskStateType;
+}
+
 const initialState: TasksStateType = {
   tasksIDByPanel: {},
   tasksHash: {},
@@ -30,7 +41,7 @@ const initialState: TasksStateType = {
 
 export const tasksReducer = (
   state: TasksStateType = initialState,
-  action: ITaskAddAction | ITaskDeleteAction,
+  action: ITaskAddAction | ITaskDeleteAction | ITaskMoveAction | ITaskEditAction,
 ): TasksStateType => {
   const { type } = action;
 
@@ -42,13 +53,16 @@ export const tasksReducer = (
         tasksIDByPanel: {
           ...state.tasksIDByPanel,
           [payload.panelId]: [
-            ...state.tasksIDByPanel[payload.panelId],
+            ...(state.tasksIDByPanel[payload.panelId] || []),
             payload.id,
           ],
         },
         tasksHash: {
           ...state.tasksHash,
-          [payload.id]: payload,
+          [payload.id]: {
+            id: payload.id,
+            body: payload.body,
+          },
         },
       };
     }
@@ -66,6 +80,75 @@ export const tasksReducer = (
           [payload.panelId]: state.tasksIDByPanel[payload.panelId].filter(id => id !== payload.id),
         },
       };
+
+    case MOVE_TASK: {
+      const {
+        payload: {
+          from,
+          to,
+        },
+      } = action as ITaskMoveAction;
+
+      if (from.taskId === to.taskId) {
+        return state;
+      }
+
+      if (from.panelId === to.panelId) {
+        const toIndex = state.tasksIDByPanel[from.panelId].findIndex(id => id === to.taskId);
+        const arrayToReplace = state.tasksIDByPanel[from.panelId].filter(id => id !== from.taskId);
+        arrayToReplace.splice(toIndex, 0, from.taskId);
+
+        return {
+          tasksHash: {
+            ...state.tasksHash,
+          },
+          tasksIDByPanel: {
+            ...state.tasksIDByPanel,
+            [from.panelId]: arrayToReplace,
+          },
+        };
+      }
+
+      const toIndex = state.tasksIDByPanel[to.panelId]
+        .findIndex(id => id === to.taskId);
+      const fromArrayToReplace = state.tasksIDByPanel[from.panelId]
+        .filter(id => id !== from.taskId);
+      const toArrayToReplace = state.tasksIDByPanel[to.panelId];
+      toArrayToReplace.splice(toIndex, 0, from.taskId);
+
+      return {
+        tasksHash: {
+          ...state.tasksHash,
+        },
+        tasksIDByPanel: {
+          ...state.tasksIDByPanel,
+          [from.panelId]: fromArrayToReplace,
+          [to.panelId]: toArrayToReplace,
+        },
+      };
+    }
+
+    case EDIT_TASK: {
+      const {
+        payload: {
+          id,
+          body,
+        },
+      } = action as ITaskEditAction;
+
+      return {
+        tasksHash: {
+          ...state.tasksHash,
+          [id]: {
+            id,
+            body,
+          },
+        },
+        tasksIDByPanel: {
+          ...state.tasksIDByPanel,
+        },
+      };
+    }
 
     default:
       return state;

@@ -5,13 +5,16 @@ import { Dispatch } from 'redux';
 import { IAppState } from '../../common/state';
 import { CenterContainer } from '../../components/Layouts';
 
-import Panel from '../../components/Panel';
+import Panel from './Panel';
 import TextHeader from '../../components/TextHeader';
-import AddPanel from '../../components/Panel/AddPanel';
+import AddPanel from './Panel/AddPanel';
 import { PanelsContainer } from './Dashbaord.styles';
 
 import { panelsSelector } from '../../selectors/panel';
-import { PanelsStateType } from '../../actions/panel';
+import {
+  PanelsStateType,
+  addPanel,
+} from '../../actions/panel';
 import { tasksSelector } from '../../selectors/task';
 import { TasksStateType } from '../../actions/task';
 
@@ -24,26 +27,13 @@ export interface IDashdboardProps extends IMapStateToProps {
   dispatch: Dispatch;
 }
 
-export interface IDashboardState {
-  placeAboveTaskId: string;
-}
-
-export class Dashdboard extends React.PureComponent<IDashdboardProps, IDashboardState>{
-  public state: IDashboardState = {
-    placeAboveTaskId: '',
-  };
-
-  private handlePlaceAboveTaskIsChange = (id: string) => {
-    this.setState({ placeAboveTaskId: id });
-  }
-
+export class Dashdboard extends React.PureComponent<IDashdboardProps, {}>{
   private renderPanel = (id: string) => {
     const {
       panels: {
         panelsHash,
       },
     } = this.props;
-    const { placeAboveTaskId } = this.state;
 
     const panel = panelsHash[id];
 
@@ -51,14 +41,15 @@ export class Dashdboard extends React.PureComponent<IDashdboardProps, IDashboard
       <Panel
         key={panel.id}
         panel={panel}
-        placeAboveTaskId={placeAboveTaskId}
-        onPlaceAboveTaskIdChange={this.handlePlaceAboveTaskIsChange}
       />
     );
   }
 
-  private handleAddPanel = () => {
-    console.log('add panel');
+  private handleAddPanel = (title: string) => {
+    const { dispatch } = this.props;
+    dispatch(addPanel({ title }));
+
+    console.log('add panel', title);
   }
 
   private renderPanels = () => {
@@ -67,7 +58,7 @@ export class Dashdboard extends React.PureComponent<IDashdboardProps, IDashboard
     return (
       <PanelsContainer>
         {panels.panelsID.map(id => this.renderPanel(id))}
-        <AddPanel onAddClick={this.handleAddPanel}/>
+        <AddPanel onCreate={this.handleAddPanel}/>
       </PanelsContainer>
     );
   }

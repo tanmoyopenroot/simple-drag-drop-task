@@ -84,17 +84,17 @@ class Input extends React.PureComponent<IInputProps, IInputState> {
     const { query } = this.state;
     const {
       autoFocus,
-      // type,
+      type,
       placeholder,
     } = this.props;
 
     return(
       <InputElement
         autoFocus={autoFocus}
-        // type={type}
+        type={type}
         value={query}
         placeholder={placeholder}
-        // onKeyDown={this.handleKeyDown}
+        onKeyDown={this.handleKeyDown}
         onChange={this.handleChange}
         onBlur={this.handleBlur}
       />

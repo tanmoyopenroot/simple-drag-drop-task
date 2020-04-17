@@ -43,6 +43,16 @@ const state: IAppState = {
       },
     },
   },
+  move: {
+    from: {
+      taskId: '',
+      panelId: '',
+    },
+    to: {
+      taskId: '',
+      panelId: '',
+    },
+  }
 };
 
 export default state;

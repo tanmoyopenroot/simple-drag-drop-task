@@ -5,6 +5,7 @@ export const THEME: DefaultTheme = {
   PRIMARY_BACKGROUND_IMAGE: 'linear-gradient(0deg,hsl(215,14%,16%) 0%,hsl(215,19%,29%) 100%)',
   SECONDARY_BACKGROUND_IMAGE: 'hsl(215, 14%, 37.5%)',
   ACTIONABLE_BACKGROUND_IMAGE: 'linear-gradient(90deg,#028ce1 0%,#6acbe0 100%)',
+  RADIUS: '3px',
   FONT: {
     LARGE: '2em',
     MEDIUM: '1em',

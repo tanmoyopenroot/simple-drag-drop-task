@@ -6,6 +6,7 @@ declare module 'styled-components' {
     PRIMARY_BACKGROUND_IMAGE: string;
     SECONDARY_BACKGROUND_IMAGE: string;
     ACTIONABLE_BACKGROUND_IMAGE: string;
+    RADIUS: string;
     FONT: {
       LARGE: string;
       MEDIUM: string;

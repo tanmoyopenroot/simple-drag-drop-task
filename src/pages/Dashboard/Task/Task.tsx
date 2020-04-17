@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Input from '../Input';
+import Input from '../../../components/Input';
 import TaskActions from './TaskActions';
 import {
   TaskBody,
@@ -10,6 +10,7 @@ import {
 export interface ITaskProps {
   id: string;
   body?: string;
+  onChange: (body: string, id: string) => void;
   onDragStart: (event: React.MouseEvent<HTMLDivElement>, id: string) => void;
   onDragEnd: (event: React.MouseEvent<HTMLDivElement>, id: string) => void;
 }
@@ -24,7 +25,7 @@ export interface IDefaultProps {
 
 class Task extends React.Component<ITaskProps, ITaskState> {
   public static defaultProps: IDefaultProps = {
-    body: 'Enter new task...',
+    body: '',
   };
 
   public state: ITaskState = {
@@ -52,6 +53,12 @@ class Task extends React.Component<ITaskProps, ITaskState> {
   }
 
   private handleOnBlur = (value: string) => {
+    const {
+      id,
+      onChange,
+    } = this.props;
+
+    onChange(value, id);
     this.toggleEdit();
   }
 

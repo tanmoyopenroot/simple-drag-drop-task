@@ -36,7 +36,7 @@ export const panelsReducer = (
 
       return {
         panelsID: [
-          ...state.panelsID,
+          ...(state.panelsID || []),
           payload.id,
         ],
         panelsHash: {

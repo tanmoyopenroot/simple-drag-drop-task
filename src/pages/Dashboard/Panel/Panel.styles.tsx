@@ -1,16 +1,10 @@
 import * as React from 'react';
 import styledComponents from 'styled-components';
+import { GroupedRow } from '../../../common/styles';
 import {
   IPrimaryTextProps,
   PrimaryText,
-} from '../Layouts';
-
-const GROUPED_ROW = styledComponents.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-`;
+} from '../../../components/Layouts';
 
 export interface IPanelHeaderProps extends IPrimaryTextProps {
   size?: string | number;
@@ -25,7 +19,7 @@ export const PanelHeader = React.memo(styledComponents(PrimaryText)<IPanelHeader
 
 export const PanelContainer = styledComponents.div`
   background-image: ${props => props.theme.PRIMARY_BACKGROUND_IMAGE};
-  border-radius: 3px;
+  border-radius: ${props => props.theme.RADIUS};
   box-shadow: ${props => props.theme.ELEVATION.ONE};
   margin-right: 10px;
   width: 370px;
@@ -41,26 +35,26 @@ export interface ITaskContainerProps {
 }
 
 export const TaskContainer = styledComponents.div<ITaskContainerProps>`
-  border-top: 2px solid ${props => props.placeAboveIndicator
+  outline: 2px dotted ${props => props.placeAboveIndicator
     ? props.theme.PRIMARY_TEXT
     : 'transparent'
   };
+  border-radius: ${props => props.theme.RADIUS};
   transition: 0.2s ease-in-out all;
-  padding: 4px 0px;
+  margin: 4px 0px;
 `;
 
-export const AddPanelWrapper = styledComponents(GROUPED_ROW)`
-  background-image: ${props => props.theme.ACTIONABLE_BACKGROUND_IMAGE};
-  border-radius: 3px;
-  box-shadow: ${props => props.theme.ELEVATION.ONE};
+export const AddPanelWrapper = styledComponents(GroupedRow)`
   margin-right: 10px;
   width: 300px;
-  cursor: pointer;
+  height: fit-content;
+`;
+
+export const InputWrapper = styledComponents.div`
+  background: ${props => props.theme.SECONDARY_BACKGROUND_IMAGE};
+  border-radius: ${props => props.theme.RADIUS};
+  cursor: grab;
   padding: .66rem 1rem;
   position: relative;
-  height: fit-content;
-
-  button {
-    color: ${props => props.theme.PRIMARY_TEXT};
-  };
+  margin: 20px 0px;
 `;
