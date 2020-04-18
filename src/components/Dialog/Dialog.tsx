@@ -1,12 +1,12 @@
 import * as React from 'react';
 
-import { DialogWrapper } from './Dialog.styles'; 
+import { DialogWrapper } from './Dialog.styles';
 
 export interface IDialogProps {
   children?: React.ReactChild;
 }
 
-const Dialog = React.forwardRef<HTMLDialogElement, IDialogProps>(({ children }, ref) => (
+export const Dialog = React.forwardRef<HTMLDialogElement, IDialogProps>(({ children }, ref) => (
   <DialogWrapper ref={ref}>
     {children}
   </DialogWrapper>

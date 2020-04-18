@@ -5,7 +5,7 @@ export const DialogWrapper = styledComponents.dialog`
   border-radius: ${props => props.theme.RADIUS};
   border: none;
   padding: .66rem 1rem;
-  box-shadow: ${props => props.theme.ELEVATION.ONE};
+  box-shadow: ${props => props.theme.ELEVATION && props.theme.ELEVATION.ONE};
   width: 40%;
 
   &[open] {
