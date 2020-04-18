@@ -10,6 +10,7 @@ import {
 export interface ITaskProps {
   id: string;
   body?: string;
+  onDrag: (event: React.MouseEvent<HTMLDivElement>) => void;
   onChange: (body: string, id: string) => void;
   onDragStart: (event: React.MouseEvent<HTMLDivElement>, id: string) => void;
 }
@@ -88,13 +89,17 @@ class Task extends React.Component<ITaskProps, ITaskState> {
   }
 
   render() {
-    const { id } = this.props;
+    const {
+      id,
+      onDrag,
+    } = this.props;
 
     return(
       <TaskWrapper
         id={id}
         draggable={true}
         onDragStart={this.handleDragStart}
+        onDrag={onDrag}
       >
         {this.getInput()}
         <TaskActions onEditClick={this.toggleEdit} />

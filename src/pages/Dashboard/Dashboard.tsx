@@ -28,6 +28,40 @@ export interface IDashdboardProps extends IMapStateToProps {
 }
 
 export class Dashdboard extends React.PureComponent<IDashdboardProps, {}>{
+  private static viewportWidth = document.documentElement.clientWidth - 20;
+
+  private panelContainerRef = React.createRef<HTMLDivElement>();
+
+  private handleOnTaskDrag = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (!this.panelContainerRef.current) {
+      return;
+    }
+
+    const edgeSize = 500;
+    const viewportX = event.clientX;
+    const viewportWidth = Dashdboard.viewportWidth;
+    const edgeLeft = edgeSize;
+    const edgeRight = (viewportWidth - edgeSize);
+    const isInLeftEdge = (viewportX < edgeLeft);
+    const isInRightEdge = (viewportX > edgeRight);
+
+    if (isInLeftEdge) {
+      const intensity = ((edgeLeft - viewportX) / edgeSize);
+
+      this.panelContainerRef.current.scroll({
+        left: event.clientX -  (100 * intensity),
+        behavior: 'smooth',
+      });
+    } else if (isInRightEdge) {
+      const intensity = ((viewportX - edgeRight) / edgeSize);
+
+      this.panelContainerRef.current.scroll({
+        left: event.clientX +  (100 * intensity),
+        behavior: 'smooth',
+      });
+    }
+  }
+
   private renderPanel = (id: string) => {
     const {
       panels: {
@@ -40,6 +74,7 @@ export class Dashdboard extends React.PureComponent<IDashdboardProps, {}>{
     return (
       <Panel
         key={panel.id}
+        onTaskDrag={this.handleOnTaskDrag}
         panel={panel}
       />
     );
@@ -55,7 +90,7 @@ export class Dashdboard extends React.PureComponent<IDashdboardProps, {}>{
     const { panels } = this.props;
 
     return (
-      <PanelsContainer>
+      <PanelsContainer ref={this.panelContainerRef}>
         {panels.panelsID.map(id => this.renderPanel(id))}
         <AddPanel onCreate={this.handleAddPanel}/>
       </PanelsContainer>

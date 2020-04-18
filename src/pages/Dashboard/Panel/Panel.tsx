@@ -36,6 +36,7 @@ export interface IMapStateToProps {
 
 export interface IPanelProps extends IMapStateToProps {
   dispatch: Dispatch;
+  onTaskDrag: (event: React.MouseEvent<HTMLDivElement>) => void;
   panel: IPanelModal;
 }
 
@@ -104,6 +105,12 @@ export class Panel extends React.PureComponent<IPanelProps, {}> {
     }));
   }
 
+  private handleOnDrag = (event: React.MouseEvent<HTMLDivElement>) => {
+    const { onTaskDrag } = this.props;
+
+    onTaskDrag(event);
+  }
+
   private renderTask = (id: string) => {
     const {
       tasks: {
@@ -122,6 +129,7 @@ export class Panel extends React.PureComponent<IPanelProps, {}> {
         <Task
           id={id}
           body={task.body}
+          onDrag={this.handleOnDrag}
           onChange={this.handleChangeTask}
           onDragStart={this.handleTaskDragStart}
         />
