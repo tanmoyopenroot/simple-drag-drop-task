@@ -49,7 +49,7 @@ export class Panel extends React.PureComponent<IPanelProps, {}> {
     </PanelHeader>
   )
 
-  private handleAddTask = (body: string) => {
+  public handleAddTask = (body: string) => {
     const {
       dispatch,
       panel: {
@@ -83,7 +83,7 @@ export class Panel extends React.PureComponent<IPanelProps, {}> {
     }
   }
 
-  public handleTaskDragStart = (event: React.MouseEvent<HTMLDivElement>, id: string) => {
+  private handleTaskDragStart = (event: React.MouseEvent<HTMLDivElement>, id: string) => {
     const { dispatch, panel } = this.props;
 
     dispatch(moveFrom({
@@ -96,7 +96,7 @@ export class Panel extends React.PureComponent<IPanelProps, {}> {
     }));
   }
 
-  private handleChangeTask = (body: string, id: string) => {
+  public handleChangeTask = (body: string, id: string) => {
     const { dispatch } = this.props;
 
     dispatch(editTask({

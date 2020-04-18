@@ -10,7 +10,7 @@ export interface IPanelHeaderProps extends IPrimaryTextProps {
 }
 
 export const PanelHeader = React.memo(styledComponents(PrimaryText)<IPanelHeaderProps>`
-  font-size: ${props => props.size || props.theme.FONT.MEDIUM};
+  font-size: ${props => props.size || (props.theme.FONT && props.theme.FONT.MEDIUM)};
   font-weight: bold;
   margin: 0px;
   padding: 1rem 1.5rem;
@@ -20,7 +20,7 @@ export const PanelHeader = React.memo(styledComponents(PrimaryText)<IPanelHeader
 export const PanelContainer = styledComponents.div`
   background-image: ${props => props.theme.PRIMARY_BACKGROUND_IMAGE};
   border-radius: ${props => props.theme.RADIUS};
-  box-shadow: ${props => props.theme.ELEVATION.ONE};
+  box-shadow: ${props => props.theme.ELEVATION && props.theme.ELEVATION.ONE};
   padding: 1rem 1.5rem;
 
   display: grid;

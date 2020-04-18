@@ -19,7 +19,7 @@ export const TaskActionWrapper = styledComponents(GroupedColumn)`
 
 export const TaskBody = styledComponents.div`
   color: ${props => props.theme.PRIMARY_TEXT};
-  font-size: ${props => props.theme.FONT.MEDIUM};
+  font-size: ${props => props.theme.FONT && props.theme.FONT.MEDIUM};
 `;
 
 export const InputWrapper = styledComponents.div`
