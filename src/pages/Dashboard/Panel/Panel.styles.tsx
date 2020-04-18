@@ -12,7 +12,8 @@ export interface IPanelHeaderProps extends IPrimaryTextProps {
 export const PanelHeader = React.memo(styledComponents(PrimaryText)<IPanelHeaderProps>`
   font-size: ${props => props.size || props.theme.FONT.MEDIUM};
   font-weight: bold;
-  padding: 1rem;
+  margin: 0px;
+  padding: 1rem 1.5rem;
   text-align: center;
 `);
 
@@ -20,7 +21,7 @@ export const PanelContainer = styledComponents.div`
   background-image: ${props => props.theme.PRIMARY_BACKGROUND_IMAGE};
   border-radius: ${props => props.theme.RADIUS};
   box-shadow: ${props => props.theme.ELEVATION.ONE};
-  margin-right: 10px;
+  padding: 1rem 1.5rem;
 
   display: grid;
   grid-template-rows: auto minmax(auto, 1fr) auto;
@@ -28,7 +29,6 @@ export const PanelContainer = styledComponents.div`
 `;
 
 export const TasksContainer = styledComponents.div`
-  padding: 1rem 1.5rem;
 `;
 
 export interface ITaskContainerProps {
@@ -43,6 +43,11 @@ export const TaskContainer = styledComponents.div<ITaskContainerProps>`
   border-radius: ${props => props.theme.RADIUS};
   transition: 0.2s ease-in-out all;
   margin: 4px 0px;
+`;
+
+export const NoTaskDropArea = styledComponents.div`
+  padding: .66rem 1rem;
+  opacity: 0;
 `;
 
 export const InputWrapper = styledComponents.div`

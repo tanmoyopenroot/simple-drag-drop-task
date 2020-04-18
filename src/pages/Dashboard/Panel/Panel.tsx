@@ -2,6 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
+import idGenerator from '../../../utils/id-generator';
 import { IPanelModal } from '../../../modals/panel';
 import { IAppState } from '../../../common/state';
 import { tasksSelector } from '../../../selectors/task';
@@ -25,6 +26,7 @@ import {
   PanelContainer,
   TasksContainer,
   TaskContainer,
+  NoTaskDropArea,
 } from './Panel.styles';
 
 export interface IMapStateToProps {
@@ -38,6 +40,8 @@ export interface IPanelProps extends IMapStateToProps {
 }
 
 export class Panel extends React.PureComponent<IPanelProps, {}> {
+  private dropAreaId: string = idGenerator();
+
   private renderPanelHeader = (title: string) => (
     <PanelHeader>
       {title}
@@ -141,19 +145,55 @@ export class Panel extends React.PureComponent<IPanelProps, {}> {
     );
   }
 
-  private renderTasks = (panelId: string) => {
+  private renderTaskDropArea = () => {
     const {
       tasks: {
         tasksIDByPanel,
       },
+      panel: {
+        id,
+      },
+      moveTaskAboveId,
     } = this.props;
 
-    const tasks = tasksIDByPanel[panelId] || [];
+    const tasks = tasksIDByPanel[id] || [];
+    const taskExists = tasks.length;
+
+    return (
+      <React.Fragment>
+        {
+          !taskExists && (
+            <TaskContainer
+              key={this.dropAreaId}
+              placeAboveIndicator={moveTaskAboveId === this.dropAreaId}
+              onDragOver={this.handleTaskDragOver(this.dropAreaId)}
+            >
+              <NoTaskDropArea>
+                DROP HERE
+              </NoTaskDropArea>
+            </TaskContainer>
+          )
+        }
+      </React.Fragment>
+    );
+  }
+
+  private renderTasks = () => {
+    const {
+      tasks: {
+        tasksIDByPanel,
+      },
+      panel: {
+        id,
+      },
+    } = this.props;
+
+    const tasks = tasksIDByPanel[id] || [];
 
     return (
       <TasksContainer>
         {tasks.map(id => this.renderTask(id))}
-        {this.renderAddTask()}
+        {this.renderTaskDropArea()}
       </TasksContainer>
     );
   }
@@ -198,7 +238,8 @@ export class Panel extends React.PureComponent<IPanelProps, {}> {
         // onDragEnd={this.handleDropOverPanelEnd}
       >
         {this.renderPanelHeader(panel.title)}
-        {this.renderTasks(panel.id)}
+        {this.renderTasks()}
+        {this.renderAddTask()}
       </PanelContainer>
     );
   }

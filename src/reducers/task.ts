@@ -10,7 +10,15 @@ import {
   DELETE_TASK,
   EDIT_TASK,
   MOVE_TASK,
+  ON_PANEL_CREATE,
 } from '../actions/types';
+
+interface IOnPanelCreateAction extends Action {
+  type: typeof ON_PANEL_CREATE;
+  payload: {
+    panelId: string;
+  };
+}
 
 interface ITaskAddAction extends Action {
   type: typeof ADD_TASK;
@@ -41,11 +49,29 @@ const initialState: TasksStateType = {
 
 export const tasksReducer = (
   state: TasksStateType = initialState,
-  action: ITaskAddAction | ITaskDeleteAction | ITaskMoveAction | ITaskEditAction,
+  action: IOnPanelCreateAction
+    | ITaskAddAction
+    | ITaskDeleteAction
+    | ITaskMoveAction
+    | ITaskEditAction,
 ): TasksStateType => {
   const { type } = action;
 
   switch (type) {
+    case ON_PANEL_CREATE: {
+      const { payload } = action as IOnPanelCreateAction;
+
+      return {
+        tasksIDByPanel: {
+          ...state.tasksIDByPanel,
+          [payload.panelId]: [],
+        },
+        tasksHash: {
+          ...state.tasksHash,
+        },
+      };
+    }
+
     case ADD_TASK: {
       const { payload } = action as ITaskAddAction;
 

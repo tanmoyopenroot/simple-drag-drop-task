@@ -8,3 +8,5 @@ export const MOVE_TASK = 'MOVE_TASK';
 
 export const MOVE_FROM = 'MOVE_FROM';
 export const MOVE_TO = 'MOVE_TO';
+
+export const ON_PANEL_CREATE = 'ON_PANEL_CREATE';
