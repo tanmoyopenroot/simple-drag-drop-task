@@ -1,7 +1,7 @@
 import { Middleware, Action } from 'redux';
 
 import idGenerator from '../utils/id-generator';
-import { IAppState } from '../common/state'
+import { IAppState } from '../common/state';
 import { IPanelAddAction } from '../actions/panel';
 import {
   ADD_PANEL,

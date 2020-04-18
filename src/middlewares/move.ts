@@ -1,6 +1,6 @@
 import { Middleware, Action } from 'redux';
 
-import { IAppState } from '../common/state'
+import { IAppState } from '../common/state';
 import { ITaskMoveAction } from '../actions/task';
 import { MOVE_TASK } from '../actions/types';
 

@@ -1,6 +1,6 @@
 import { Middleware, Action } from 'redux';
 
-import { IAppState } from '../common/state'
+import { IAppState } from '../common/state';
 import { ITaskAddAction } from '../actions/task';
 import { ADD_TASK } from '../actions/types';
 import idGenerator from '../utils/id-generator';
