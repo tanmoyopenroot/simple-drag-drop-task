@@ -47,9 +47,8 @@ export class Dashdboard extends React.PureComponent<IDashdboardProps, {}>{
 
   private handleAddPanel = (title: string) => {
     const { dispatch } = this.props;
-    dispatch(addPanel({ title }));
 
-    console.log('add panel', title);
+    dispatch(addPanel({ title }));
   }
 
   private renderPanels = () => {

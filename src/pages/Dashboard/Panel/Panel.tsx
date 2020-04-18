@@ -59,37 +59,32 @@ export class Panel extends React.PureComponent<IPanelProps, {}> {
       body,
       panelId: id,
     }));
-
-    console.log('add task', body);
   }
 
   private renderAddTask = () => <AddTask onCreate={this.handleAddTask} />;
 
-  private handleTaskDragOver = (id: string) =>
-    (event: React.MouseEvent<HTMLDivElement>) => {
-      const {
-        moveTaskAboveId,
-        dispatch,
-        panel,
-      } = this.props;
+  private handleTaskDragOver = (id: string) => () => {
+    const {
+      moveTaskAboveId,
+      dispatch,
+      panel,
+    } = this.props;
 
-      if (moveTaskAboveId === id) {
-        return;
-      }
-
-      if (moveTaskAboveId !== id) {
-        dispatch(moveTo({
-          panelId: panel.id,
-          taskId: id,
-        }));
-      }
-
-      // console.log('handleTaskDragOver', event, id, panelId);
+    if (moveTaskAboveId === id) {
+      return;
     }
+
+    if (moveTaskAboveId !== id) {
+      dispatch(moveTo({
+        panelId: panel.id,
+        taskId: id,
+      }));
+    }
+  }
 
   public handleTaskDragStart = (event: React.MouseEvent<HTMLDivElement>, id: string) => {
     const { dispatch, panel } = this.props;
-    console.log('handleTaskDragStart', event, id);
+
     dispatch(moveFrom({
       panelId: panel.id,
       taskId: id,
@@ -98,16 +93,6 @@ export class Panel extends React.PureComponent<IPanelProps, {}> {
       panelId: panel.id,
       taskId: id,
     }));
-  }
-
-  public handleTaskDragEnd = (event: React.MouseEvent<HTMLDivElement>, id: string) => {
-    const { dispatch } = this.props;
-
-    // console.log('handleTaskDragEnd', event.target, id);
-    // dispatch(moveTo({
-    //   panelId: '',
-    //   taskId: '',
-    // }));
   }
 
   private handleChangeTask = (body: string, id: string) => {
@@ -139,7 +124,6 @@ export class Panel extends React.PureComponent<IPanelProps, {}> {
           body={task.body}
           onChange={this.handleChangeTask}
           onDragStart={this.handleTaskDragStart}
-          onDragEnd={this.handleTaskDragEnd}
         />
       </TaskContainer>
     );
@@ -200,32 +184,16 @@ export class Panel extends React.PureComponent<IPanelProps, {}> {
 
   private handlePanelDragOver = (event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault();
-
-    // console.log('handlePanelDragOver');
   }
 
-  private handleDropOverPanel = (event: React.MouseEvent<HTMLDivElement>) => {
-    const { dispatch, panel, moveTaskAboveId  } = this.props;
-
-    // console.log('handleDropOverPanel', panel.id, event.target);
-    console.log('Test 1', moveTaskAboveId);
+  private handleDropOverPanel = () => {
+    const { dispatch  } = this.props;
     dispatch(moveTask());
-    console.log('Test 2', moveTaskAboveId);
     dispatch(moveTo({
       panelId: '',
       taskId: '',
     }));
   }
-
-  // private handleDropOverPanelEnd = (event: React.MouseEvent<HTMLDivElement>) => {
-  //   const { dispatch, panel } = this.props;
-
-  //   console.log('handleDropOverPanelEnd', panel.id, event.target);
-  //   dispatch(moveTo({
-  //     panelId: panel.id,
-  //     taskId: '',
-  //   }));
-  // }
 
   public render() {
     const { panel } = this.props;
@@ -235,7 +203,6 @@ export class Panel extends React.PureComponent<IPanelProps, {}> {
         key={panel.id}
         onDragOver={this.handlePanelDragOver}
         onDrop={this.handleDropOverPanel}
-        // onDragEnd={this.handleDropOverPanelEnd}
       >
         {this.renderPanelHeader(panel.title)}
         {this.renderTasks()}

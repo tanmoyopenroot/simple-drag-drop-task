@@ -12,7 +12,6 @@ export interface ITaskProps {
   body?: string;
   onChange: (body: string, id: string) => void;
   onDragStart: (event: React.MouseEvent<HTMLDivElement>, id: string) => void;
-  onDragEnd: (event: React.MouseEvent<HTMLDivElement>, id: string) => void;
 }
 
 export interface ITaskState {
@@ -71,15 +70,6 @@ class Task extends React.Component<ITaskProps, ITaskState> {
     onDragStart(event, id);
   }
 
-  private handleDragEnd = (event: React.MouseEvent<HTMLDivElement>) => {
-    const {
-      id,
-      onDragEnd,
-    } = this.props;
-
-    onDragEnd(event, id);
-  }
-
   private getInput = () => {
     const { body } = this.props;
     const { isEditing } = this.state;
@@ -105,7 +95,6 @@ class Task extends React.Component<ITaskProps, ITaskState> {
         id={id}
         draggable={true}
         onDragStart={this.handleDragStart}
-        onDragEnd={this.handleDragEnd}
       >
         {this.getInput()}
         <TaskActions onEditClick={this.toggleEdit} />
