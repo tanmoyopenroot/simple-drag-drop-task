@@ -30,3 +30,7 @@ export const InputWrapper = styledComponents.div`
   position: relative;
   margin: 20px 0px;
 `;
+
+export const AddTaskWrapper = styledComponents.div`
+  margin-top: 20px;
+`;

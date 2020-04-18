@@ -7,6 +7,7 @@ import Input from '../../../components/Input';
 import Dialog from '../../../components/Dialog';
 import { GroupedRow } from '../../../common/styles';
 import {
+  AddTaskWrapper,
   InputWrapper,
 } from './Task.styles';
 
@@ -55,7 +56,7 @@ class AddTaskActions extends React.Component<IAddActionsProps, IAddActionState> 
     const { body } = this.state;
 
     return (
-      <React.Fragment>
+      <AddTaskWrapper>
         <Button onClick={this.handleOnAddPanelClick}>
           <React.Fragment>
             <IoIosAdd />
@@ -91,7 +92,7 @@ class AddTaskActions extends React.Component<IAddActionsProps, IAddActionState> 
             </GroupedRow>
           </React.Fragment>
         </Dialog>
-      </React.Fragment>
+      </AddTaskWrapper>
     );
   }
 }

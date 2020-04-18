@@ -29,6 +29,9 @@ export const PanelContainer = styledComponents.div`
 `;
 
 export const TasksContainer = styledComponents.div`
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding: 0px 2px;
 `;
 
 export interface ITaskContainerProps {
