@@ -12,7 +12,7 @@ enum KEYS {
 
 export interface IInputProps {
   autoFocus?: boolean;
-  defaultValue?: string;
+  defaultValue: string;
   type?: InputType;
   placeholder?: string;
   onChange?: (value: string) => void;
@@ -23,7 +23,7 @@ export interface IInputState {
   query: string;
 }
 
-class Input extends React.PureComponent<IInputProps, IInputState> {
+class Input extends React.Component<IInputProps, IInputState> {
   public static Type = InputType;
   public static defaultProps: Partial<IInputProps> = {
     autoFocus: false,
@@ -40,6 +40,28 @@ class Input extends React.PureComponent<IInputProps, IInputState> {
     const { defaultValue } = this.props;
 
     if (defaultValue) {
+      this.setState({ query: defaultValue });
+    }
+  }
+
+  public shouldComponentUpdate(nextProps: IInputProps, nextState: IInputState) {
+    const {
+      defaultValue,
+      placeholder,
+      autoFocus,
+    } = this.props;
+    const { query } = this.state;
+
+    return placeholder !== nextProps.placeholder
+      || defaultValue !== nextProps.defaultValue
+      || autoFocus !== nextProps.autoFocus
+      || query !== nextState.query;
+  }
+
+  public componentDidUpdate(prevProps: IInputProps) {
+    const { defaultValue } = this.props;
+
+    if (defaultValue !== prevProps.defaultValue) {
       this.setState({ query: defaultValue });
     }
   }

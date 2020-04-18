@@ -42,6 +42,7 @@ class AddPanelActions extends React.Component<IAddActionsProps, IAddActionState>
     if (title) {
       onCreate(title);
       this.handleCloseDialog();
+      this.setState({ title: '' });
     }
   }
 

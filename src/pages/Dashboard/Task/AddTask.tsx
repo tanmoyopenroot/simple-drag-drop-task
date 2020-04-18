@@ -45,6 +45,7 @@ class AddTaskActions extends React.Component<IAddActionsProps, IAddActionState> 
     if (body) {
       onCreate(body);
       this.handleCloseDialog();
+      this.setState({ body: '' });
     }
   }
 
@@ -97,4 +98,4 @@ class AddTaskActions extends React.Component<IAddActionsProps, IAddActionState> 
   }
 }
 
-export default React.memo(AddTaskActions);
+export default AddTaskActions;
