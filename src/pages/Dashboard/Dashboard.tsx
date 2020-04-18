@@ -28,16 +28,22 @@ export interface IDashdboardProps extends IMapStateToProps {
 }
 
 export class Dashdboard extends React.PureComponent<IDashdboardProps, {}>{
-  private static viewportWidth = document.documentElement.clientWidth - 20;
+  private static viewportWidth: number = document.documentElement.clientWidth;
 
-  private panelContainerRef = React.createRef<HTMLDivElement>();
+  private panelContainerRef: React.RefObject<HTMLDivElement> = React.createRef<HTMLDivElement>();
+  private autoScrollLocked: boolean = false;
 
   private handleOnTaskDrag = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (!this.panelContainerRef.current) {
+    if (
+      !this.panelContainerRef.current
+      || this.autoScrollLocked
+    ) {
       return;
     }
 
-    const edgeSize = 500;
+    this.autoScrollLocked = true;
+
+    const edgeSize = 100;
     const viewportX = event.clientX;
     const viewportWidth = Dashdboard.viewportWidth;
     const edgeLeft = edgeSize;
@@ -46,20 +52,18 @@ export class Dashdboard extends React.PureComponent<IDashdboardProps, {}>{
     const isInRightEdge = (viewportX > edgeRight);
 
     if (isInLeftEdge) {
-      const intensity = ((edgeLeft - viewportX) / edgeSize);
-
       this.panelContainerRef.current.scroll({
-        left: event.clientX -  (100 * intensity),
+        left: viewportX - 100,
         behavior: 'smooth',
       });
     } else if (isInRightEdge) {
-      const intensity = ((viewportX - edgeRight) / edgeSize);
-
       this.panelContainerRef.current.scroll({
-        left: event.clientX +  (100 * intensity),
+        left: viewportX + 100,
         behavior: 'smooth',
       });
     }
+
+    this.autoScrollLocked = false;
   }
 
   private renderPanel = (id: string) => {

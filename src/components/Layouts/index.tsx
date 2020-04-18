@@ -9,7 +9,7 @@ export interface ICenterContainerProps {
 export const CenterContainer = React.memo(styledComponents.div<ICenterContainerProps>`
   background-color: ${props => props.color};
   width: ${props => props.width};
-  padding: 20px;
+  padding: 20px 30px;
   margin: 20px auto;
   animation: fadeIn 0.5s ease-in;
 `);
