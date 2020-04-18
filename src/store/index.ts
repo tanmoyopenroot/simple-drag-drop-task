@@ -9,7 +9,7 @@ import reducers from '../reducers';
 import middlewares from '../middlewares';
 import { composeEnhancers } from './utils';
 
-export const initStore = (initialState: IAppState) => {
+export const initStore = (initialState?: IAppState) => {
   const rootReducer = combineReducers({ ...reducers });
   const combinedMiddlewares = applyMiddleware(...middlewares);
   const enhancers = composeEnhancers(combinedMiddlewares);
