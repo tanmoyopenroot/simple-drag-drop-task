@@ -2,7 +2,6 @@ import { Action } from 'redux';
 import { ITaskModal } from '../modals/task';
 import {
   ADD_TASK,
-  DELETE_TASK,
   EDIT_TASK,
   MOVE_TASK,
 } from './types';
@@ -16,14 +15,6 @@ export interface ITaskAddAction extends Action {
   type: typeof ADD_TASK;
   payload: {
     body: string;
-    panelId: string;
-  };
-}
-
-interface ITaskDeleteAction extends Action {
-  type: typeof DELETE_TASK;
-  payload: {
-    id: string;
     panelId: string;
   };
 }
@@ -48,16 +39,6 @@ export const addTask = (
 ): ITaskAddAction => ({
   payload,
   type: ADD_TASK,
-});
-
-export const deleteTask = (
-  payload: {
-    id: string;
-    panelId: string;
-  },
-): ITaskDeleteAction => ({
-  payload,
-  type: DELETE_TASK,
 });
 
 export const editTask = (

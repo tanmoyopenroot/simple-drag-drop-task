@@ -7,7 +7,6 @@ import {
 import { MoveTaskStateType } from '../actions/move';
 import {
   ADD_TASK,
-  DELETE_TASK,
   EDIT_TASK,
   MOVE_TASK,
   ON_PANEL_CREATE,
@@ -29,14 +28,6 @@ interface ITaskAddAction extends Action {
   };
 }
 
-interface ITaskDeleteAction extends Action {
-  type: typeof DELETE_TASK;
-  payload: {
-    id: string;
-    panelId: string;
-  };
-}
-
 interface ITaskMoveAction extends Action {
   type: typeof MOVE_TASK;
   payload: MoveTaskStateType;
@@ -51,7 +42,6 @@ export const tasksReducer = (
   state: TasksStateType = initialState,
   action: IOnPanelCreateAction
     | ITaskAddAction
-    | ITaskDeleteAction
     | ITaskMoveAction
     | ITaskEditAction,
 ): TasksStateType => {
@@ -92,20 +82,6 @@ export const tasksReducer = (
         },
       };
     }
-
-    case DELETE_TASK:
-      const { payload } = action as ITaskDeleteAction;
-      const tasksHash = { ...state.tasksHash };
-
-      Reflect.deleteProperty(tasksHash, payload.id);
-
-      return {
-        tasksHash,
-        tasksIDByPanel: {
-          ...state.tasksIDByPanel,
-          [payload.panelId]: state.tasksIDByPanel[payload.panelId].filter(id => id !== payload.id),
-        },
-      };
 
     case MOVE_TASK: {
       const {

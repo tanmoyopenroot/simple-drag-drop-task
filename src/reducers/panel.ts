@@ -2,21 +2,11 @@ import { Action } from 'redux';
 
 import { IPanelModal } from '../modals/panel';
 import { PanelsStateType } from '../actions/panel';
-import {
-  ADD_PANEL,
-  DELETE_PANEL,
-} from '../actions/types';
+import { ADD_PANEL } from '../actions/types';
 
 interface IPanelAddAction extends Action {
   type: typeof ADD_PANEL;
   payload: IPanelModal;
-}
-
-interface IPanelDeleteAction extends Action {
-  type: typeof DELETE_PANEL;
-  payload: {
-    id: string;
-  };
 }
 
 const initialState: PanelsStateType = {
@@ -26,7 +16,7 @@ const initialState: PanelsStateType = {
 
 export const panelsReducer = (
   state: PanelsStateType = initialState,
-  action: IPanelAddAction | IPanelDeleteAction,
+  action: IPanelAddAction,
 ): PanelsStateType => {
   const { type } = action;
 
@@ -45,17 +35,6 @@ export const panelsReducer = (
         },
       };
     }
-
-    case DELETE_PANEL:
-      const { payload } = action as IPanelDeleteAction;
-      const panelsHash = { ...state.panelsHash };
-
-      Reflect.deleteProperty(panelsHash, payload.id);
-
-      return {
-        panelsHash,
-        panelsID: state.panelsID.filter(id => id !== payload.id),
-      };
 
     default:
       return state;
