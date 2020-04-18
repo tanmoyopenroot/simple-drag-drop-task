@@ -8,8 +8,8 @@ import {
 
 export interface ITextHeaderProps extends IPrimaryTextProps {}
 
-const TextHeader = styledComponents(PrimaryText)<ITextHeaderProps>`
-  font-size: ${props => props.theme.FONT.LARGE};
+export const TextHeader = styledComponents(PrimaryText)<ITextHeaderProps>`
+  font-size: ${props => props.theme.FONT && props.theme.FONT.LARGE};
   margin: 20px auto;
   font-weight: 600;
 `;
