@@ -7,11 +7,13 @@ import {
 } from '../Dialog';
 
 describe('Testing <Button />', () => {
-  const dialogRef = React.createRef<HTMLDialogElement>();
+  const props: IDialogProps = {
+    open: true,
+  };
 
   const wrapper = mount<IDialogProps, {}>(
     (
-      <Dialog ref={dialogRef}>
+      <Dialog open={props.open}>
         Some Content
       </Dialog>
     ),
@@ -21,7 +23,6 @@ describe('Testing <Button />', () => {
     expect(wrapper.length).toEqual(1);
     expect(wrapper.children().length).toBe(1);
     expect(wrapper.text()).toEqual('Some Content');
-    expect(wrapper.find('[forwardedRef]').text()).toEqual('Some Content');
 
     expect(wrapper.html()).toMatchSnapshot();
   });

@@ -1,15 +1,32 @@
 import * as React from 'react';
 
-import { DialogWrapper } from './Dialog.styles';
+import {
+  DialogOverlay,
+  DialogWrapper,
+} from './Dialog.styles';
 
 export interface IDialogProps {
+  open: boolean;
   children?: React.ReactChild;
 }
 
-export const Dialog = React.forwardRef<HTMLDialogElement, IDialogProps>(({ children }, ref) => (
-  <DialogWrapper ref={ref}>
-    {children}
-  </DialogWrapper>
-));
+export const Dialog: React.FC<IDialogProps> = (props) => {
+  const {
+    open,
+    children,
+  } = props;
 
-export default React.memo(Dialog);
+  if (!open) {
+    return null;
+  }
+
+  return (
+    <DialogOverlay open={open}>
+      <DialogWrapper>
+        {children}
+      </DialogWrapper>
+    </DialogOverlay>
+  );
+};
+
+export default Dialog;

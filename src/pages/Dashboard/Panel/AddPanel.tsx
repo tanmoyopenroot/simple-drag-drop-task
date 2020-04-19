@@ -14,25 +14,21 @@ interface IAddActionsProps {
 
 interface IAddActionState {
   title: string;
+  dialogOpen: boolean;
 }
 
 class AddPanelActions extends React.Component<IAddActionsProps, IAddActionState> {
-  private dialogRef = React.createRef<HTMLDialogElement>();
-
   public state: IAddActionState = {
     title: '',
+    dialogOpen: false,
   };
 
   handleOnAddPanelClick = () => {
-    if (this.dialogRef.current) {
-      this.dialogRef.current.showModal();
-    }
+    this.setState({ dialogOpen: true });
   }
 
   handleCloseDialog = () => {
-    if (this.dialogRef.current) {
-      this.dialogRef.current.close();
-    }
+    this.setState({ dialogOpen: false });
   }
 
   handleOnCreate = () => {
@@ -51,7 +47,10 @@ class AddPanelActions extends React.Component<IAddActionsProps, IAddActionState>
   }
 
   public render() {
-    const { title } = this.state;
+    const {
+      title,
+      dialogOpen,
+    } = this.state;
 
     return (
       <React.Fragment>
@@ -61,7 +60,7 @@ class AddPanelActions extends React.Component<IAddActionsProps, IAddActionState>
             Add Panel
           </React.Fragment>
         </Button>
-        <Dialog ref={this.dialogRef}>
+        <Dialog open={dialogOpen}>
           <React.Fragment>
             <TextHeader>
               Enter Panel Title
@@ -71,7 +70,7 @@ class AddPanelActions extends React.Component<IAddActionsProps, IAddActionState>
                 autoFocus={true}
                 defaultValue={title}
                 placeholder="Panel Title"
-                onChange={this.handleOnChange}
+                onBlur={this.handleOnChange}
               />
             </InputWrapper>
             <GroupedRow justifyContent="space-evenly">

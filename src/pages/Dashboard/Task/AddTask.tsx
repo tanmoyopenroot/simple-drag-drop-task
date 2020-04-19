@@ -17,25 +17,21 @@ interface IAddActionsProps {
 
 interface IAddActionState {
   body: string;
+  dialogOpen: boolean;
 }
 
 class AddTaskActions extends React.Component<IAddActionsProps, IAddActionState> {
-  private dialogRef = React.createRef<HTMLDialogElement>();
-
   public state: IAddActionState = {
     body: '',
+    dialogOpen: false,
   };
 
-  handleOnAddPanelClick = () => {
-    if (this.dialogRef.current) {
-      this.dialogRef.current.showModal();
-    }
+  handleOnAddTaskClick = () => {
+    this.setState({ dialogOpen: true });
   }
 
   handleCloseDialog = () => {
-    if (this.dialogRef.current) {
-      this.dialogRef.current.close();
-    }
+    this.setState({ dialogOpen: false });
   }
 
   handleOnCreate = () => {
@@ -54,17 +50,20 @@ class AddTaskActions extends React.Component<IAddActionsProps, IAddActionState> 
   }
 
   public render() {
-    const { body } = this.state;
+    const {
+      body,
+      dialogOpen,
+    } = this.state;
 
     return (
       <AddTaskWrapper>
-        <Button onClick={this.handleOnAddPanelClick}>
+        <Button onClick={this.handleOnAddTaskClick}>
           <React.Fragment>
             <IoIosAdd />
             Add Task
           </React.Fragment>
         </Button>
-        <Dialog ref={this.dialogRef}>
+        <Dialog open={dialogOpen}>
           <React.Fragment>
             <TextHeader>
               Enter task Info
@@ -74,7 +73,7 @@ class AddTaskActions extends React.Component<IAddActionsProps, IAddActionState> 
                 autoFocus={true}
                 defaultValue={body}
                 placeholder="Add Task"
-                onChange={this.handleOnChange}
+                onBlur={this.handleOnChange}
               />
             </InputWrapper>
             <GroupedRow justifyContent="space-evenly">

@@ -25,7 +25,6 @@ export const TaskBody = styledComponents.div`
 export const InputWrapper = styledComponents.div`
   background: ${props => props.theme.SECONDARY_BACKGROUND_IMAGE};
   border-radius: ${props => props.theme.RADIUS};
-  cursor: grab;
   padding: .66rem 1rem;
   position: relative;
   margin: 20px 0px;
