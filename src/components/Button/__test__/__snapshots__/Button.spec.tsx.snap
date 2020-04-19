@@ -1,3 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Testing <Button /> should be able to render with props 1`] = `ReactWrapper {}`;
+exports[`Testing <Button /> should be able to invoke onClick 1`] = `"<button width=\\"100px\\" class=\\"sc-bdVaJa fstkyl\\">Click Me!</button>"`;
+
+exports[`Testing <Button /> should be able to render with props 1`] = `"<button width=\\"100px\\" class=\\"sc-bdVaJa fstkyl\\">Click Me!</button>"`;

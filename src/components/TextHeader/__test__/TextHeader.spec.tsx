@@ -18,6 +18,7 @@ describe('Testing <CenterContainer />', () => {
     expect(wrapper.length).toEqual(1);
     expect(wrapper.children().length).toBe(1);
     expect(wrapper.props().color).toEqual(props.color);
-    expect(wrapper).toMatchSnapshot();
+
+    expect(wrapper.html()).toMatchSnapshot();
   });
 });

@@ -22,7 +22,8 @@ describe('Testing <Input />', () => {
     expect(wrapper.props().type).toEqual(props.type);
     expect(wrapper.props().onBlur).toEqual(props.onBlur);
     expect(wrapper.props().onChange).toEqual(props.onChange);
-    expect(wrapper).toMatchSnapshot();
+
+    expect(wrapper.html()).toMatchSnapshot();
   });
 
   it('should be able to change input value', () => {
@@ -39,5 +40,7 @@ describe('Testing <Input />', () => {
       .simulate('blur', { target: { value: 'newBlur' } });
     expect(wrapper.state().query).toBe('newBlur');
     expect(props.onBlur).toBeCalledWith('newBlur');
+
+    expect(wrapper.html()).toMatchSnapshot();
   });
 });

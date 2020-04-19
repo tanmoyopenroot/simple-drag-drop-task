@@ -28,11 +28,14 @@ describe('Testing <Button />', () => {
     expect(wrapper.children().length).toBe(1);
     expect(wrapper.text()).toEqual('Click Me!');
     expect(wrapper.props().width).toEqual(props.width);
-    expect(wrapper).toMatchSnapshot();
+
+    expect(wrapper.html()).toMatchSnapshot();
   });
 
   it('should be able to invoke onClick', () => {
     wrapper.simulate('click');
     expect(handleOnClick).toBeCalledTimes(1);
+
+    expect(wrapper.html()).toMatchSnapshot();
   });
 });

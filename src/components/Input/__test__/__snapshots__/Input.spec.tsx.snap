@@ -1,3 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Testing <Input /> should be able to render with props 1`] = `ReactWrapper {}`;
+exports[`Testing <Input /> should be able to change input value 1`] = `"<input type=\\"text\\" placeholder=\\"\\" class=\\"sc-bdVaJa jyAdQI\\" value=\\"newBlur\\">"`;
+
+exports[`Testing <Input /> should be able to render with props 1`] = `"<input type=\\"text\\" placeholder=\\"\\" class=\\"sc-bdVaJa jyAdQI\\" value=\\"abc\\">"`;

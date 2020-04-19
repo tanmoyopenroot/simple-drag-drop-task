@@ -43,7 +43,8 @@ describe('Test <Panel />', () => {
     expect(wrapperInstance.props.tasks).toEqual(props.tasks);
     expect(wrapperInstance.props.moveTaskAboveId).toEqual(props.moveTaskAboveId);
     expect(wrapperInstance.props.dispatch).toEqual(props.dispatch);
-    expect(wrapper).toMatchSnapshot();
+
+    expect(wrapper.html()).toMatchSnapshot();
   });
 
   it('should render all tasks', () => {
@@ -75,6 +76,8 @@ describe('Test <Panel />', () => {
         .find(TaskContainer),
       )
     .toHaveLength(tasksIDByPanel[id].length);
+
+    expect(wrapper.html()).toMatchSnapshot();
   });
 
   it('should call handleChangeTask method', () => {
@@ -107,6 +110,8 @@ describe('Test <Panel />', () => {
     );
     expect(props.dispatch).toBeCalledWith(expectedAction);
     expect(props.dispatch).toBeCalledTimes(1);
+
+    expect(wrapper.html()).toMatchSnapshot();
   });
 
   it('should call handleAddTask method', () => {
@@ -129,5 +134,7 @@ describe('Test <Panel />', () => {
     wrapperInstance.handleAddTask('New Task');
     expect(props.dispatch).toBeCalledWith(expectedAction);
     expect(props.dispatch).toBeCalledTimes(1);
+
+    expect(wrapper.html()).toMatchSnapshot();
   });
 });

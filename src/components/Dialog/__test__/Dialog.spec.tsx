@@ -22,6 +22,7 @@ describe('Testing <Button />', () => {
     expect(wrapper.children().length).toBe(1);
     expect(wrapper.text()).toEqual('Some Content');
     expect(wrapper.find('[forwardedRef]').text()).toEqual('Some Content');
-    expect(wrapper).toMatchSnapshot();
+
+    expect(wrapper.html()).toMatchSnapshot();
   });
 });
