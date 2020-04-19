@@ -1,5 +1,7 @@
 # Simple Drag and Drop Task
 
+![Peek](demo/Peek.png)
+
 ## Quick Overview
 
 Install **```yarn```** to install dependencies.  
