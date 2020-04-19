@@ -44,7 +44,7 @@ class Task extends React.Component<ITaskProps, ITaskState> {
       isEditing !== nextState.isEditing;
   }
 
-  private toggleEdit = () => {
+  public toggleEdit = () => {
     const { isEditing } = this.state;
 
     this.setState({
@@ -52,7 +52,7 @@ class Task extends React.Component<ITaskProps, ITaskState> {
     });
   }
 
-  private handleOnBlur = (value: string) => {
+  public handleOnBlur = (value: string) => {
     const {
       id,
       onChange,
