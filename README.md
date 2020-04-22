@@ -1,6 +1,6 @@
 # Simple Drag and Drop Task
 
-![Peek](demo/Peek.png)
+![Peek](demo/peek.png)
 
 ## Quick Overview
 
